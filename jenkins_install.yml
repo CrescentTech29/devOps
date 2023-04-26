@@ -1,0 +1,51 @@
+
+```yaml
+---
+- name: Install and Configure Jenkins on Red Hat-based servers
+hosts: redhat_servers
+become: yes
+tasks:
+
+  - name: Install OpenJDK 11
+    yum:
+      name: java-11-openjdk
+      state: present
+
+  - name: Add Jenkins repository
+    ansible.builtin.rpm_key:
+      key: https://pkg.jenkins.io/redhat/jenkins.io.key
+      state: present
+
+  - name: Add Jenkins repo file
+    ansible.builtin.copy:
+      content: |
+        [jenkins]
+        name=Jenkins
+      baseurl=http://pkg.jenkins.io/redhat
+      gpgcheck=1
+    dest: /etc/yum.repos.d/jenkins.repo
+
+  - name: Install Jenkins
+    yum:
+      name: jenkins
+      state: present
+
+  - name: Start and enable Jenkins service
+    systemd:
+      name: jenkins
+      state: started
+      enabled: yes
+
+  - name: Open port 8080 for Jenkins web interface
+    firewalld:
+      port: 8080/tcp
+      permanent: yes
+      state: enabled
+      notify: reload firewalld
+
+      handlers:
+        - name: reload firewalld
+          systemd:
+            name: firewalld
+            state: reloaded
+            ```
