@@ -1,3 +1,8 @@
-To use the script, save it as "user_rotate.sh" and make it executable with chmod +x user_rotate.sh. Then run it as root or with sudo privileges: sudo ./user_rotate.sh.
+To install and configure Jenkins on Red Hat-based servers using Ansible, you can create a playbook called `jenkins_install.yml`. This playbook will:
 
-Please note that this script should be used with caution, as it automatically creates new user accounts and changes passwords without any confirmation. Make sure to adapt it to your specific requirements and test it in a safe environment before deploying it in a production system.
+1. Install Java (OpenJDK).
+2. Add the Jenkins repository.
+3. Install and start the Jenkins service.
+4. Configure the firewall to allow access to the Jenkins web interface.
+
+Make sure you have Ansible installed on the control node and that the target Red Hat-based servers are listed in your inventory file (e.g., `/etc/ansible/hosts`). 
