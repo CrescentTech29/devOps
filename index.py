@@ -1,4 +1,4 @@
 name = Sama
 iq = Very smart
 
-print(name + "is a" + iq ". Thank God for Grace")
+print(name + "is a" + iq " youg man. Thank God for Grace")
